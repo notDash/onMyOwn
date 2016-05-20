@@ -75,8 +75,8 @@
 		console.log(person1 instanceof Person); // true
 		console.log(person1.sayName == person2.sayName); // true		
 		原型对象的问题：1.没法为构造函数传递初始化参数； 
-						2.所有实例共享一个属性和方法。如果一个属性是引用类型的话。那么修改一个实例的值，会相应的提现在另外一
-						个实例上。如下所示：
+				2.所有实例共享一个属性和方法。如果一个属性是引用类型的话。那么修改一个实例的值，会相应的提现在另外一
+				个实例上。如下所示：
 		var Person = function(){};
 		Person.prototype = {
 			constructor:Person, // 以字面量的方式写Person.prototype会断开原始的原型链。所以要把Person重新设置
