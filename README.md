@@ -58,7 +58,69 @@
 		// 通过构造函数的方式，我们可以确定对象的实例类型
 		console.log(person1 instanceof Person); // true
 		
-	未完待续...
+####3. 原型模式创建对象	
+		我们创建的每一个函数都有一个prototype属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以有特定类型的所有实例共享的属性和方法。使用原型对象可以使所有的对象实例共享它所包含的属性和方法。
+		var Person = function(){};
+		Person.prototype.name = "zhangsan";
+		Person.prototype.age = 23;
+		Person.prototype.sayName = function() {
+			console.log(this.name);
+		}
+
+		var person1 = new Person();
+		person1.sayName(); // 输出“zhangsan”
+		var person2 = new Person();
+		person2.sayName(); // 输出“lisi”
+		// 通过构造函数的方式，我们可以确定对象的实例类型
+		console.log(person1 instanceof Person); // true
+		console.log(person1.sayName == person2.sayName); // true		
+		原型对象的问题：1.没法为构造函数传递初始化参数； 
+						2.所有实例共享一个属性和方法。如果一个属性是引用类型的话。那么修改一个实例的值，会相应的提现在另外一
+						个实例上。如下所示：
+		var Person = function(){};
+		Person.prototype = {
+			constructor:Person, // 以字面量的方式写Person.prototype会断开原始的原型链。所以要把Person重新设置
+								//回去。要不然通过instanceof无法确定实例类型。
+			name:"lisi",
+			age:23,
+			friends:["Tom", "Cat"],
+			syanName:function(){
+				console.log(this.name);
+			}
+		};
+
+		var person1 = new Person();
+		var person2 = new Person();
+
+		person1.friends.push("Van");
+		console.log(person1.friends); // [ 'Tom', 'Cat', 'Van' ]
+		console.log(person2.friends); // [ 'Tom', 'Cat', 'Van' ]
+
+####4. 组合使用构造函数模式和原型模式创建对象			
+		创建自定义类型最常见的方式。
+		构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。
+		
+		var Person = function(name, age){
+			this.name = name;
+			this.age = age;
+			this.ftiends = ["Tom", "Cat"];
+		}
+		Person.prototype = {
+			constructor:Person,
+			sayName:function(){
+				console.log(this.name);
+			}
+		}
+
+		var person1 = new Person("zhangsan", 23);
+		var person2 = new Person("lisi", 22);
+
+		person1.ftiends.push("Ven");
+
+		console.log(person1.ftiends);     //[ 'Tom', 'Cat', 'Ven' ]
+		console.log(person2.ftiends);  //[ 'Tom', 'Cat' ]
+		console.log(person1.sayName === person2.sayName);  //true
+
 
 
 
