@@ -1,2 +1,15 @@
 # onMyOwn
-李生勇的技术博客
+
+Javascript learning
+
+Chapter 1   Create Objects
+
+
+
+
+
+
+
+
+
+
