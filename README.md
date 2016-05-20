@@ -57,7 +57,8 @@
 		person2.sayName(); // 输出“lisi”
 		// 通过构造函数的方式，我们可以确定对象的实例类型
 		console.log(person1 instanceof Person); // true
-
+		
+	未完待续...
 
 
 
