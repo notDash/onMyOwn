@@ -2,7 +2,7 @@
 
 ## Javascript learning
 
-### Chapter 1   Create Objects
+### Chapter 1  创建对象模式
 	我们知道， 在javascript中没有类的概念。但是javascript中有Object对象存在。我们可以使用new的方式来创建一个对象实例：
  		var obj = new Object();
  	或者使用对象字面量的方式来创建：
