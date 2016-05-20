@@ -59,7 +59,8 @@
 		console.log(person1 instanceof Person); // true
 		
 ####3. 原型模式创建对象	
-		我们创建的每一个函数都有一个prototype属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以有特定类型的所有实例共享的属性和方法。使用原型对象可以使所有的对象实例共享它所包含的属性和方法。
+		我们创建的每一个函数都有一个prototype属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以有特定类型的所有实例
+		共享的属性和方法。使用原型对象可以使所有的对象实例共享它所包含的属性和方法。
 		var Person = function(){};
 		Person.prototype.name = "zhangsan";
 		Person.prototype.age = 23;
