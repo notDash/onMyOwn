@@ -35,8 +35,6 @@
 
     var d = document;
     var s = null;
-    // 当前显示的dom
-    var activeDom = null;
 
     var Swiper = function (domClass, params) {
     	s = this;
@@ -47,7 +45,7 @@
             // 循环遍历defaults以及params，如果在params里有的参数则替换参数，如果没有的话则使用默认的
             if(this.params) {
                 for( var p in defaults) {
-                    if(! this.params[p]) {
+                    if(this.params[p] === undefined) {
                         this.params[p] = defaults[p];
                     }
                 }
@@ -67,7 +65,8 @@
                 classArr.push(s.params.slideActiveClass);
                 s.wrapDom.childNodes[0].className = classArr.join(' ');
             }
-            activeDom = d.getElementsByClassName(s.params.slideActiveClass)[0];
+            // 当前显示的dom
+            s.activeDom = d.getElementsByClassName(s.params.slideActiveClass)[0];
             // 判断如果autoplay为true(自动轮播), 调用轮播方法
             if(this.params['autoplay'] === true) {
                 s.sliderOpt();
@@ -86,7 +85,7 @@
                     if(s.autoplayT) {
                         clearTimeout(s.autoplayT);
                     }
-                    activeDom = event.target;
+                    s.activeDom = event.target;
                     currX = event.touches[0].pageX;
                     currY = event.touches[0].pageY;
                     s.transformPosi = s.getTransformPosi();
@@ -101,28 +100,29 @@
                         // 向右移动
                         directionTo = 1;
                         if(s.transformPosi){
-                            activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d('+(s.moveX - s.transformPosi)+'px, 0px, 0px);';
+                            s.activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d('+(s.moveX - s.transformPosi)+'px, 0px, 0px);';
                         } else {
-                            activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d('+s.moveX+'px, 0px, 0px);';
+                            s.activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d('+s.moveX+'px, 0px, 0px);';
                         }
                     }
                     if((s.moveX) > 0) {
                         // 向左移动
                         directionTo = 0;
-                        activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-'+s.moveX+'px, 0px, 0px);';
+                        s.activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-'+s.moveX+'px, 0px, 0px);';
                     }
 
                 }
             }, false);
 
             currDom.addEventListener('touchend', function(){
-
                 if(event) {
                     if(s.moveX) {
-                        activeDom.parentNode.style = '';
+                        s.activeDom.parentNode.style = '';
                         s.animateByOpt(directionTo);    
                     }
-                    s.animateOpt();
+                    if(s.params['autoplay'] === true) {
+                        s.animateOpt();
+                    }
                 }
             }, false);
         };
@@ -166,7 +166,7 @@
                 // 3.如果nextSibling为空， 则跳转1
                 var domList = s.wrapDom.childNodes;
                 s.transformPosi = s.getTransformPosi();
-                if(activeDom == s.wrapDom.childNodes[domList.length - 1]) {
+                if(s.activeDom == s.wrapDom.childNodes[domList.length - 1]) {
                     s.wrapDom.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(0px, 0px, 0px);';
                 } else {
                     // 获取父元素的值
@@ -175,9 +175,8 @@
                     currPTransformX += 980;
                     s.wrapDom.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-'+currPTransformX+'px, 0px, 0px);';
                 }
-                s.changeClass(activeDom);
+                s.changeClass();
                 s.resetActiveDom();                      
-                console.log(activeDom.innerHTML);
                 s.animateOpt();
                }
             }, this.params.delay);
@@ -187,41 +186,41 @@
         // 幻灯移动方法    directionTo 1为向右移动（默认）。 0为向左移动
         s.animateByOpt = function(directionTo) {
             if(directionTo === 1) {
-                if(activeDom) {
+                if(s.activeDom) {
                     // 判断当前元素是不是最后一个轮播图
-                    if(activeDom.parentNode.lastChild == activeDom) {
-                        //activeDom.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-980px, 0px, 0px);';
-                        activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(0px, 0px, 0px);';
+                    if(s.activeDom.parentNode.lastChild == s.activeDom) {
+                        //s.activeDom.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-980px, 0px, 0px);';
+                        s.activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(0px, 0px, 0px);';
                     } else {
                         // 获取父元素的值
                         var currPTransformX = s.transformPosi;
                         // 980这个值应该根据计算元素的宽度来获取
                         currPTransformX += 980;
-                        activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-'+currPTransformX+'px, 0px, 0px);';
+                        s.activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-'+currPTransformX+'px, 0px, 0px);';
                         
                     }
-                    s.changeClass(activeDom);
+                    s.changeClass();
                     // 重置活动对象
                     s.resetActiveDom();
                 }
             } else {
                 // 相反方向移动
-                if(activeDom) {
+                if(s.activeDom) {
                 }
             }
         };
 
         // 设置样式
-        s.changeClass = function(activeDom) {
-            var prevClass = activeDom.className.split(' ');
+        s.changeClass = function() {
+            var prevClass = s.activeDom.className.split(' ');
             prevClass.length = prevClass.length - 1;
             //prevClass.push(s.params.slidePrevClass);
-            activeDom.className = prevClass.join(' ');
-            if(activeDom.nextSibling) {
+            s.activeDom.className = prevClass.join(' ');
+            if(s.activeDom.nextSibling) {
                 // 如果有下一个兄弟元素
-                var currClass = activeDom.nextSibling.className.split(' ');
+                var currClass = s.activeDom.nextSibling.className.split(' ');
                 currClass.push(s.params.slideActiveClass);
-                activeDom.nextSibling.className = currClass.join(' ');
+                s.activeDom.nextSibling.className = currClass.join(' ');
             } else {
                 // 获取下一个元素失败， 则设置第一个元素为活动元素
                 var activeClass = s.wrapDom.childNodes[0].className.split(' ');
@@ -232,7 +231,7 @@
 
         // 重置活动对象
         s.resetActiveDom = function () {
-            activeDom = d.getElementsByClassName(s.params.slideActiveClass)[0];
+            s.activeDom = d.getElementsByClassName(s.params.slideActiveClass)[0];
         }
 
         s.init();
