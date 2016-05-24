@@ -15,6 +15,7 @@
         autoplay:true,
         // 是否循环轮播
         loopPlay:true,
+        slideWidth:0,
         // 轮播方向
         direction: 'horizontal',
         slideClass: 'swiper-slide',
@@ -67,6 +68,8 @@
             }
             // 当前显示的dom
             s.activeDom = d.getElementsByClassName(s.params.slideActiveClass)[0];
+            // 计算滑动宽度
+            s.params.slideWidth = s.activeDom.clientWidth;
             // 判断如果autoplay为true(自动轮播), 调用轮播方法
             if(this.params['autoplay'] === true) {
                 s.sliderOpt();
@@ -171,8 +174,7 @@
                 } else {
                     // 获取父元素的值
                     var currPTransformX = s.transformPosi;
-                    // 980这个值应该根据计算元素的宽度来获取
-                    currPTransformX += 980;
+                    currPTransformX += s.params.slideWidth;
                     s.wrapDom.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-'+currPTransformX+'px, 0px, 0px);';
                 }
                 s.changeClass();
@@ -189,13 +191,11 @@
                 if(s.activeDom) {
                     // 判断当前元素是不是最后一个轮播图
                     if(s.activeDom.parentNode.lastChild == s.activeDom) {
-                        //s.activeDom.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-980px, 0px, 0px);';
                         s.activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(0px, 0px, 0px);';
                     } else {
                         // 获取父元素的值
                         var currPTransformX = s.transformPosi;
-                        // 980这个值应该根据计算元素的宽度来获取
-                        currPTransformX += 980;
+                        currPTransformX += s.params.slideWidth;
                         s.activeDom.parentNode.style = 'transition-duration: ' + s.params.speed + 'ms;transform: translate3d(-'+currPTransformX+'px, 0px, 0px);';
                         
                     }
