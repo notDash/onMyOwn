@@ -35,10 +35,9 @@
     };
 
     var d = document;
-    var s = null;
 
     var Swiper = function (domClass, params) {
-    	s = this;
+    	var s = this;
     	s.params = params;
     	// 初始化， 绑定参数
         // 初始化参数设置
