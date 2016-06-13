@@ -44,14 +44,14 @@
         // 初始化参数设置
         s.init = function() {
             // 循环遍历defaults以及params，如果在params里有的参数则替换参数，如果没有的话则使用默认的
-            if(this.params) {
+            if(s.params) {
                 for( var p in defaults) {
-                    if(this.params[p] === undefined) {
-                        this.params[p] = defaults[p];
+                    if(s.params[p] === undefined) {
+                        s.params[p] = defaults[p];
                     }
                 }
             } else {
-                this.params = defaults;
+                s.params = defaults;
             }
             s.wrapDom = d.getElementsByClassName(s.params.wrapperClass)[0];
 
@@ -71,7 +71,7 @@
             // 计算滑动宽度
             s.params.slideWidth = s.activeDom.clientWidth;
             // 判断如果autoplay为true(自动轮播), 调用轮播方法
-            if(this.params['autoplay'] === true) {
+            if(s.params['autoplay'] === true) {
                 s.sliderOpt();
             }
         };
@@ -181,7 +181,7 @@
                 s.resetActiveDom();                      
                 s.animateOpt();
                }
-            }, this.params.delay);
+            }, s.params.delay);
         };
 
 
