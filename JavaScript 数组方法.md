@@ -10,11 +10,11 @@
 
 ## Array的方法
 ### 1. 转换方法
-    所有对象都有toLocaleString()、toString()、valueOf()方法， 调用数组的toString()、valueOf()会返回相同的值。调用数组的toString()、valueOf()会调用数组每一项的toString()方法调用数组的toLocaleString()h方法会调用数组每一项的toLocaleString()方法。
-    join(param) ，如果不给join()方法传递参数或者传递undefined则使用逗号作为分隔符。// IE7以及更早的版本会错误的使用字符串“undefined”作为分隔
+    所有对象都有toLocaleString()、toString()、valueOf()方法， 调用数组的toString()、valueOf()会返回相同的值。调用数组的toString()、valueOf()会调用数组每一项的toString()方法调用数组的toLocaleString()h方法会调用数组每一项的toLocaleString()方法。
+    join(param) ，如果不给join()方法传递参数或者传递undefined则使用逗号作为分隔符。// IE7以及更早的版本会错误的使用字符串“undefined”作为分隔
 
 ### 2. 栈方法
-    > push()
+    > push()
     > pop()
 ### 3. 队列方法
     > shift()
