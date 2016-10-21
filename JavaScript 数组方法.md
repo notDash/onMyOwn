@@ -14,8 +14,8 @@
     join(param) ，如果不给join()方法传递参数或者传递undefined则使用逗号作为分隔符。// IE7以及更早的版本会错误的使用字符串“undefined”作为分隔
 
 ### 2. 栈方法
-    + push()
-    + pop()
+    > push()
+    > pop()
 ### 3. 队列方法
     > shift()
     > unshift()
