@@ -1,0 +1,9 @@
+#JavaScript 数组方法
+
+##检测数组
+###1. instanceof 
+if(value instanceof Array){}  在同一个执行环境的情况下是可以的，但是在不同z的执行环境下会存在不同的Array构造函数
+###2. ES5  Array.isArray()
+if(Array.isArray(value)){} // 支持： IE9+、Firefox4+、Safari5+、Opera 10.5+、Chrome
+
+缩小方法
