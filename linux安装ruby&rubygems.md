@@ -4,8 +4,8 @@
     参考：http://blog.csdn.net/zhongruixian/article/details/21076405
 
 ## 1. 安装openssl
-    以下的操作如果没有权限， 需要在命令前加上  sudo 
-    wget http://www.openssl.org/source/openssl-1.0.1f.tar.gz
+    以下的操作如果没有权限， 需要在命令前加上  sudo 
+    wget http://www.openssl.org/source/openssl-1.0.1f.tar.gz
     tar zxvf openssl-1.0.1f.tar.gz
     cd openssl-1.0.1f
     为了不要和已安装的openssl混淆，这里指定一个新的安装目录
@@ -20,10 +20,10 @@
     wget http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.1.tar.gz
     tar zxvf ruby-2.1.1.tar.gz
     cd ruby-2.1.1
-    如果是新下载的编译包， 则可直接编译。否则需要执行
+    如果是新下载的编译包， 则可直接编译。否则需要执行
     make clean
     加上openssl安装路径重新configure，如果有安装多个版本的erlang，为了可以方便找到新安装的erl，这里可以指定一个新的安装目录，示例如下：
-    ./configure --with-ssl=/usr/local/ssl --prefix=/usr/local/ruby
+    ./configure --with-ssl=/usr/local/ssl --prefix=/usr/local/ruby
     编译并安装
     make && make install
    
@@ -34,6 +34,5 @@
     cd rubygems-1.3.7
     ruby setup.rb
     
-    安装完成之后， 如果需要运行 sudo ruby 提示找不到命令，需要添加一个
-    连接：
-    sudo ln -s /usr/local/ruby /usr/bin
+    安装完成之后， 如果需要运行 sudo ruby 提示找不到命令，需要添加一个连接：
+    sudo ln -s /usr/local/ruby /usr/bin
