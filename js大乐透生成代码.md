@@ -31,7 +31,7 @@
         var self = this
         var blueRes = [];
         for(var i = 0 ; i < 2; i++) {
-          var temp = self.getNum(12)
+          var temp = self.getNum(13)
           if(blueRes.indexOf(temp) < 0) {
             blueRes.push(temp);
           } else {
